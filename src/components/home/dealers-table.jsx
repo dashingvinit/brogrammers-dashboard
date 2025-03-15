@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../utils/axios';
 import { Card, CardContent } from '@/components/ui/card';

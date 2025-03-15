@@ -2,7 +2,7 @@ import { Users, Dealers } from '@/components/home';
 
 function Home() {
   return (
-    <div className="space-y-4 overflow-auto">
+    <div className="space-y-4">
       <Dealers />
       <Users />
     </div>

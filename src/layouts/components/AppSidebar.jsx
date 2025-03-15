@@ -4,6 +4,7 @@ import {
   Sidebar,
   SidebarHeader,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,6 +13,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import Header from './Header';
+import Footer from './Footer';
 
 const items = [
   {
@@ -61,6 +63,9 @@ export default function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <Footer />
+      </SidebarFooter>
     </Sidebar>
   );
 }
