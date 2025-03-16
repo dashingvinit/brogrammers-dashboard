@@ -3,7 +3,7 @@ import { User, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 function Footer() {
-  const { setToken } = useAuth();
+  const { logout } = useAuth();
 
   return (
     <>
@@ -12,8 +12,8 @@ function Footer() {
           <SidebarMenuButton
             size="lg"
             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
-            // disabled
-            onClick={() => setToken(null)}>
+            disabled
+            onClick={logout}>
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
               <User className="size-4" />
             </div>

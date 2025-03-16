@@ -8,27 +8,35 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/auth');
-      return;
+  const logout = async () => {
+    try {
+      localStorage.removeItem('token');
+      setToken(null);
+    } catch (e) {
+      console.log(e);
     }
+  };
 
+  useEffect(() => {
+    if (!token) return;
     try {
       const decodedToken = jwtDecode(token);
       if (decodedToken.exp * 1000 < Date.now()) {
         localStorage.removeItem('token');
         setToken(null);
-        navigate('/auth');
       }
     } catch (e) {
+      console.log('Error logout: ', e);
       localStorage.removeItem('token');
       setToken(null);
-      navigate('/auth');
     }
   }, [token, navigate]);
 
-  return <AuthContext.Provider value={{ token, setToken }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ token, isLogedIn: token ? true : false, setToken, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

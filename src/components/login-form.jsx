@@ -5,9 +5,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { axios } from '../utils';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginForm({ className, ...props }) {
+  const { setToken } = useAuth();
   const [error, setError] = useState(null);
+
+  const getOtp = async (e) => {
+    e.preventDefault();
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -18,7 +24,7 @@ export default function LoginForm({ className, ...props }) {
 
     try {
       const { data } = await axios.post('/dealer/login', { email: email, otp: password });
-      localStorage.setItem('token', data.data);
+      setToken(data.data);
       e.target.reset();
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
@@ -30,7 +36,7 @@ export default function LoginForm({ className, ...props }) {
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Login with your Apple or Google account</CardDescription>
+          <CardDescription>Login with your Email</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={submitHandler}>
@@ -49,10 +55,12 @@ export default function LoginForm({ className, ...props }) {
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                    <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
-                      Forgot your password?
-                    </a>
+                    <Label htmlFor="password">OTP</Label>
+                    <button
+                      onClick={getOtp}
+                      className="ml-auto text-sm underline-offset-4 hover:underline">
+                      Get otp
+                    </button>
                   </div>
                   <Input id="password" type="password" name="password" required />
                   {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -78,7 +86,6 @@ export default function LoginForm({ className, ...props }) {
     </div>
   );
 }
-
 {
   /* <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
@@ -99,10 +106,10 @@ export default function LoginForm({ className, ...props }) {
                   </svg>
                   Login with Google
                 </Button>
-              </div> 
+              </div>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-background text-muted-foreground relative z-10 px-2">
                   Or continue with
                 </span>
-              </div>*/
+              </div> */
 }
