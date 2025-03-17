@@ -28,7 +28,7 @@ function Dealers() {
           {isLoading ? (
             <Skeleton className="h-40 w-full" />
           ) : (
-            <Table className="p-4 overflow-y-auto">
+            <Table className="p-4">
               <TableHeader>
                 <TableRow>
                   <TableHead>Ref No</TableHead>
