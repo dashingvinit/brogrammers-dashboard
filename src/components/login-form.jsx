@@ -24,6 +24,7 @@ export default function LoginForm({ className, ...props }) {
 
     try {
       const { data } = await axios.post('/dealer/login', { email: email, otp: password });
+      localStorage.setItem('token', data.data);
       setToken(data.data);
       e.target.reset();
     } catch (err) {
